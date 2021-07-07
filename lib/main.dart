@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart';
 import 'questionlistandanswerchecker.dart';
 import 'questionsclassandcrashpreventer.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 int questionnumber = 0;
 
@@ -64,23 +65,23 @@ class _QuizAreaState extends State<QuizArea> {
           borderRadius: BorderRadius.circular(50),
         ),
         child: TextButton(
-            onPressed: () {
-              anschecker(ans);
-              setState(
-                () {
-                  quizbrain.crashstopper();
-                  // print(questionnumber);
-                },
-              );
-            },
-            child: Text(
-              '$showntext',
-              style: TextStyle(
-                color: Colors.black87,
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
+          onPressed: () {
+            anschecker(ans);
+            setState(
+              () {
+                quizbrain.crashstopper();
+                // print(questionnumber);
+              },
+            );
+          },
+          child: Text(
+            '$showntext',
+            style: GoogleFonts.breeSerif(
+              color: Colors.black87,
+              fontSize: 30,
+            ),
+          ),
+        ),
         color: colour,
       ),
     );
@@ -92,13 +93,36 @@ class _QuizAreaState extends State<QuizArea> {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Card(
+              child: TextButton(
+                onPressed: () {
+                  setState(() {
+                    questionnumber = 0;
+                    scorekeeper.clear();
+                  });
+                },
+                child: Text(
+                  'clear',
+                  style: GoogleFonts.codystar(
+                    color: Colors.black,
+                    fontWeight: FontWeight.w700,
+                    fontSize: 17,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
         Expanded(
           flex: 5 * 2,
           child: Center(
             child: Text(
               quizbrain.getQuestiontext(questionnumber),
-              style: TextStyle(
-                fontSize: 22,
+              style: GoogleFonts.fredokaOne(
+                fontSize: 28,
                 fontWeight: FontWeight.w200,
                 color: Colors.limeAccent,
               ),
@@ -107,8 +131,14 @@ class _QuizAreaState extends State<QuizArea> {
         ),
         button(colour: Colors.greenAccent, ans: true, showntext: 'True'),
         button(colour: Colors.redAccent, ans: false, showntext: 'False'),
-        Row(
-          children: scorekeeper,
+        Expanded(
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: scorekeeper,
+            ),
+          ),
         ),
       ],
     );
