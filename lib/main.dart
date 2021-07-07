@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'questionlistandanswerchecker.dart';
 
+int questionnumber = 0;
+
+List<Widget> scorekeeper = [];
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  //This is stale "less"(no state to chage) so app bar will not change change and work with hot reload
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class MyApp extends StatelessWidget {
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: Text(
-              'Quiz App',
+              'Quiz App (Tap < 11 times only)',
               style: TextStyle(
                 color: Colors.black,
                 fontSize: 20,
@@ -36,6 +41,7 @@ class MyApp extends StatelessWidget {
 }
 
 class QuizArea extends StatefulWidget {
+  // This will work with hot reload
   QuizArea({Key? key}) : super(key: key);
 
   @override
@@ -43,22 +49,6 @@ class QuizArea extends StatefulWidget {
 }
 
 class _QuizAreaState extends State<QuizArea> {
-  List<Widget> scorekeeper = [
-    Icon(
-      Icons.check_box,
-      color: Colors.greenAccent,
-    ),
-    Icon(
-      Icons.cancel,
-      color: Colors.redAccent,
-    ),
-  ];
-  List<String> questions = [
-    'Your Name is Aman (hehe)',
-    'Your Real name is Doggo boii (hehhehehehehehe)',
-    'what the dog doin',
-  ];
-  int questionnumber = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -69,7 +59,7 @@ class _QuizAreaState extends State<QuizArea> {
           flex: 5 * 2,
           child: Center(
             child: Text(
-              questions[questionnumber],
+              queslist[questionnumber].questiontext,
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w200,
@@ -88,21 +78,16 @@ class _QuizAreaState extends State<QuizArea> {
             ),
             child: TextButton(
                 onPressed: () {
+                  anschecker(true);
                   setState(
                     () {
-                      scorekeeper.add(
-                        Icon(
-                          Icons.check_box,
-                          color: Colors.greenAccent,
-                        ),
-                      );
                       questionnumber++;
-                      print(questionnumber);
+                      // print(questionnumber);
                     },
                   );
                 },
                 child: Text(
-                  '--->',
+                  'True',
                   style: TextStyle(
                     color: Colors.black87,
                     fontSize: 30,
@@ -123,16 +108,15 @@ class _QuizAreaState extends State<QuizArea> {
             color: Colors.redAccent,
             child: TextButton(
               onPressed: () {
+                anschecker(false);
                 setState(
                   () {
-                    questionnumber--;
-                    scorekeeper.removeLast();
-                    print(questionnumber);
+                    questionnumber++;
                   },
                 );
               },
               child: Text(
-                '<---',
+                'false',
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.black87,
