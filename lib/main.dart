@@ -43,6 +43,16 @@ class QuizArea extends StatefulWidget {
 }
 
 class _QuizAreaState extends State<QuizArea> {
+  List<Widget> scorekeeper = [
+    Icon(
+      Icons.check_box,
+      color: Colors.greenAccent,
+    ),
+    Icon(
+      Icons.cancel,
+      color: Colors.redAccent,
+    ),
+  ];
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -50,7 +60,7 @@ class _QuizAreaState extends State<QuizArea> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          flex: 5,
+          flex: 5 * 2,
           child: Center(
             child: Text(
               'lorem ipsum',
@@ -63,51 +73,69 @@ class _QuizAreaState extends State<QuizArea> {
           ),
         ),
         Expanded(
+          flex: 2,
           child: Card(
-            child: Center(
+            elevation: 4,
+            shadowColor: Colors.greenAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
+            child: TextButton(
+                onPressed: () {
+                  setState(
+                    () {
+                      scorekeeper.add(
+                        Icon(
+                          Icons.check_box,
+                          color: Colors.greenAccent,
+                        ),
+                      );
+                    },
+                  );
+                },
                 child: Text(
-              'True',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
+                  'True',
+                  style: TextStyle(
+                    color: Colors.black87,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold,
+                  ),
+                )),
             color: Colors.greenAccent,
           ),
         ),
         Expanded(
+          flex: 2,
           child: Card(
+            elevation: 4,
+            shadowColor: Colors.redAccent,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(50),
+            ),
             color: Colors.redAccent,
-            child: Center(
+            child: TextButton(
+              onPressed: () {
+                setState(
+                  () {
+                    scorekeeper.removeLast();
+                  },
+                );
+              },
               child: Text(
                 'false',
                 style: TextStyle(
                   fontSize: 30,
+                  color: Colors.black87,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ),
           ),
         ),
-        Row(
-          children: [
-            Icon(
-              Icons.check_box,
-              color: Colors.greenAccent,
-            ),
-            Icon(
-              Icons.cancel,
-              color: Colors.redAccent,
-            ),
-            Icon(
-              Icons.check,
-              color: Colors.greenAccent,
-            ),
-            Icon(
-              Icons.close,
-              color: Colors.redAccent,
-            ),
-          ],
+        Expanded(
+          child: Row(
+            children: scorekeeper,
+          ),
         ),
       ],
     );
