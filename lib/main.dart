@@ -14,12 +14,21 @@ class MyApp extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
-            bottomOpacity: 2,
-            toolbarOpacity: 2,
-            title: Text('Quiz App'),
+            title: Text(
+              'Quiz App',
+              style: TextStyle(
+                color: Colors.black,
+                fontSize: 20,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
           ),
-          backgroundColor: Colors.black54,
-          body: Center(child: QuizArea()),
+          backgroundColor: Colors.grey[900],
+          body: Center(
+              child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: QuizArea(),
+          )),
         ),
       ),
     );
@@ -36,10 +45,71 @@ class QuizArea extends StatefulWidget {
 class _QuizAreaState extends State<QuizArea> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Card(
-        shadowColor: Colors.white,
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Expanded(
+          flex: 5,
+          child: Center(
+            child: Text(
+              'lorem ipsum',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.w200,
+                color: Colors.limeAccent,
+              ),
+            ),
+          ),
+        ),
+        Expanded(
+          child: Card(
+            child: Center(
+                child: Text(
+              'True',
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+            color: Colors.greenAccent,
+          ),
+        ),
+        Expanded(
+          child: Card(
+            color: Colors.redAccent,
+            child: Center(
+              child: Text(
+                'false',
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ),
+        Row(
+          children: [
+            Icon(
+              Icons.check_box,
+              color: Colors.greenAccent,
+            ),
+            Icon(
+              Icons.cancel,
+              color: Colors.redAccent,
+            ),
+            Icon(
+              Icons.check,
+              color: Colors.greenAccent,
+            ),
+            Icon(
+              Icons.close,
+              color: Colors.redAccent,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
