@@ -53,6 +53,12 @@ class _QuizAreaState extends State<QuizArea> {
       color: Colors.redAccent,
     ),
   ];
+  List<String> questions = [
+    'Your Name is Aman (hehe)',
+    'Your Real name is Doggo boii (hehhehehehehehe)',
+    'what the dog doin',
+  ];
+  int questionnumber = 0;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -63,7 +69,7 @@ class _QuizAreaState extends State<QuizArea> {
           flex: 5 * 2,
           child: Center(
             child: Text(
-              'lorem ipsum',
+              questions[questionnumber],
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w200,
@@ -90,11 +96,13 @@ class _QuizAreaState extends State<QuizArea> {
                           color: Colors.greenAccent,
                         ),
                       );
+                      questionnumber++;
+                      print(questionnumber);
                     },
                   );
                 },
                 child: Text(
-                  'True',
+                  '--->',
                   style: TextStyle(
                     color: Colors.black87,
                     fontSize: 30,
@@ -117,12 +125,14 @@ class _QuizAreaState extends State<QuizArea> {
               onPressed: () {
                 setState(
                   () {
+                    questionnumber--;
                     scorekeeper.removeLast();
+                    print(questionnumber);
                   },
                 );
               },
               child: Text(
-                'false',
+                '<---',
                 style: TextStyle(
                   fontSize: 30,
                   color: Colors.black87,
