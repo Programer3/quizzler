@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'questionlistandanswerchecker.dart';
 
 int questionnumber = 0;
@@ -49,6 +50,39 @@ class QuizArea extends StatefulWidget {
 }
 
 class _QuizAreaState extends State<QuizArea> {
+  Expanded button(
+      {required Color colour, required bool ans, required String showntext}) {
+    return Expanded(
+      flex: 2,
+      child: Card(
+        elevation: 4,
+        shadowColor: colour,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(50),
+        ),
+        child: TextButton(
+            onPressed: () {
+              anschecker(ans);
+              setState(
+                () {
+                  questionnumber++;
+                  // print(questionnumber);
+                },
+              );
+            },
+            child: Text(
+              '$showntext',
+              style: TextStyle(
+                color: Colors.black87,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            )),
+        color: colour,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -68,69 +102,8 @@ class _QuizAreaState extends State<QuizArea> {
             ),
           ),
         ),
-        Expanded(
-          flex: 2,
-          child: Card(
-            elevation: 4,
-            shadowColor: Colors.greenAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-            child: TextButton(
-                onPressed: () {
-                  anschecker(true);
-                  setState(
-                    () {
-                      questionnumber++;
-                      // print(questionnumber);
-                    },
-                  );
-                },
-                child: Text(
-                  'True',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 30,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )),
-            color: Colors.greenAccent,
-          ),
-        ),
-        Expanded(
-          flex: 2,
-          child: Card(
-            elevation: 4,
-            shadowColor: Colors.redAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-            ),
-            color: Colors.redAccent,
-            child: TextButton(
-              onPressed: () {
-                anschecker(false);
-                setState(
-                  () {
-                    questionnumber++;
-                  },
-                );
-              },
-              child: Text(
-                'false',
-                style: TextStyle(
-                  fontSize: 30,
-                  color: Colors.black87,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-          ),
-        ),
-        Expanded(
-          child: Row(
-            children: scorekeeper,
-          ),
-        ),
+        button(colour: Colors.greenAccent, ans: true, showntext: 'True'),
+        button(colour: Colors.redAccent, ans: false, showntext: 'False'),
       ],
     );
   }
