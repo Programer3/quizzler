@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+// import 'package:flutter/rendering.dart';
 import 'questionlistandanswerchecker.dart';
+import 'questionsclassandcrashpreventer.dart';
 
 int questionnumber = 0;
 
 List<Widget> scorekeeper = [];
+
+Quizbrain quizbrain = Quizbrain();
 void main() {
   runApp(MyApp());
 }
@@ -18,6 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           appBar: AppBar(
             backgroundColor: Colors.white,
             title: Text(
@@ -44,7 +48,6 @@ class MyApp extends StatelessWidget {
 class QuizArea extends StatefulWidget {
   // This will work with hot reload
   QuizArea({Key? key}) : super(key: key);
-
   @override
   _QuizAreaState createState() => _QuizAreaState();
 }
@@ -65,7 +68,7 @@ class _QuizAreaState extends State<QuizArea> {
               anschecker(ans);
               setState(
                 () {
-                  questionnumber++;
+                  quizbrain.crashstopper();
                   // print(questionnumber);
                 },
               );
@@ -93,7 +96,7 @@ class _QuizAreaState extends State<QuizArea> {
           flex: 5 * 2,
           child: Center(
             child: Text(
-              queslist[questionnumber].questiontext,
+              quizbrain.getQuestiontext(questionnumber),
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w200,
@@ -104,6 +107,9 @@ class _QuizAreaState extends State<QuizArea> {
         ),
         button(colour: Colors.greenAccent, ans: true, showntext: 'True'),
         button(colour: Colors.redAccent, ans: false, showntext: 'False'),
+        Row(
+          children: scorekeeper,
+        ),
       ],
     );
   }
