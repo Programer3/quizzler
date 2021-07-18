@@ -1,0 +1,19 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#1f1d1d",
+        "editor.background": "#111010",
+        "sideBar.background": "#1c1b1b",
+        "sideBar.border": "#b8b6b6",
+        "activityBar.border": "#b8b6b6",
+        "statusBar.background": "#1a1818",
+        "editorGutter.background": "#0d0c0c"
+    },
+    "editor.tokenColorCustomizations": {
+        "functions": "#aa27bb",
+        "comments": "#77d611",
+        "strings": "#54f7b3",
+        "keywords": "#f23524",
+        "variables": "#f7fa41"
+    }
+}

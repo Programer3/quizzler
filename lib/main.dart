@@ -3,7 +3,6 @@ import 'package:flutter/rendering.dart';
 import 'questionlistandanswerchecker.dart';
 import 'questionsclassandcrashpreventer.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:quizzler/dialogue.dart';
 
 int questionnumber = 0;
 
@@ -56,6 +55,37 @@ class QuizArea extends StatefulWidget {
 }
 
 class _QuizAreaState extends State<QuizArea> {
+  void clearbutton() {
+    questionnumber = 0;
+    scorekeeper.clear();
+  }
+
+  showAlertDialog(BuildContext context) {
+    if (questionnumber == 10) {
+      AlertDialog alert = AlertDialog(
+        title: Text('Choose!'),
+        content: Text(
+            'The questions are finished, You must choose "Clear" button in top-right to restart'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: Text('OK'),
+          ),
+        ],
+        elevation: 24.0,
+      );
+      showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return alert;
+        },
+      );
+    }
+  }
+
   Expanded button(
       {required Color colour,
       required bool ans,
@@ -75,7 +105,7 @@ class _QuizAreaState extends State<QuizArea> {
             setState(
               () {
                 quizbrain.crashstopper();
-                alertshower();
+                showAlertDialog(context);
                 // print(questionnumber);
               },
             );
