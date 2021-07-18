@@ -3,12 +3,14 @@ import 'package:flutter/rendering.dart';
 import 'questionlistandanswerchecker.dart';
 import 'questionsclassandcrashpreventer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quizzler/dialogue.dart';
 
 int questionnumber = 0;
 
 List<Widget> scorekeeper = [];
 
 Quizbrain quizbrain = Quizbrain();
+
 void main() {
   runApp(MyApp());
 }
@@ -55,7 +57,10 @@ class QuizArea extends StatefulWidget {
 
 class _QuizAreaState extends State<QuizArea> {
   Expanded button(
-      {required Color colour, required bool ans, required String showntext}) {
+      {required Color colour,
+      required bool ans,
+      required String showntext}) //fxn for true, false ui
+  {
     return Expanded(
       flex: 2,
       child: Card(
@@ -70,6 +75,7 @@ class _QuizAreaState extends State<QuizArea> {
             setState(
               () {
                 quizbrain.crashstopper();
+                alertshower();
                 // print(questionnumber);
               },
             );
@@ -100,8 +106,7 @@ class _QuizAreaState extends State<QuizArea> {
               child: TextButton(
                 onPressed: () {
                   setState(() {
-                    questionnumber = 0;
-                    scorekeeper.clear();
+                    clearbutton();
                   });
                 },
                 child: Text(
